@@ -1,0 +1,212 @@
+:root {
+    --white: #ffffff;
+    --accent-color-1: #646cff;
+    --accent-color-1-faded: #535bf2;
+    --accent-color-2: #24c8db;
+    --custom-white-light: #f6f6f6;
+    --custom-white-dark: #e8e8e8;
+    --custom-black-1: #0f0f0f;
+    --custom-black-1-faded-1: #0f0f0f98;
+    --custom-black-1-faded-2: #0f0f0f69;
+    --custom-black-2: #2f2f2f;
+
+    --link-text: var(--accent-color-1);
+
+    --dark-link-hover: var(--accent-color-2);
+    --dark-text: var(--custom-white-light);
+    --dark-background: var(--custom-black-2);
+    --dark-button-text: var(--white);
+    --dark-button-background: var(--custom-black-1-faded-1);
+    --dark-button-active-background: var(--custom-black-1-faded-2);
+
+    --light-link-hover: var(--accent-color-1-faded);
+    --light-text: var(--custom-black-1);
+    --light-background: var(--custom-white-light);
+    --light-button-border: var(--accent-color-1-faded);
+    --light-button-text: var(--custom-black-1);
+    --light-button-background: var(--white);
+    --light-button-active-background: var(--custom-white-dark);
+
+	font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	line-height: 24px;
+	font-weight: 400;
+
+	color: var(--light-text);
+	background-color: var(--light-background);
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+}
+
+.container {
+	margin: 0;
+	padding-top: 10vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
+
+.row {
+	display: flex;
+	justify-content: center;
+}
+
+.logo {
+	height: 6em;
+	padding: 1.5em;
+	will-change: filter;
+	transition: 0.75s;
+}
+
+.logo:hover {
+	filter: drop-shadow(0 0 2em var(--accent-color-2));
+}
+
+a {
+	font-weight: 500;
+	text-decoration: inherit;
+	cursor: pointer;
+	color: var(--link-text);
+}
+
+a:hover {
+	color: var(--light-link-hover);
+}
+
+h1 {
+	text-align: center;
+}
+
+input,
+button {
+	border-radius: 8px;
+	border: 1px solid transparent;
+	padding: 0.6em 1.2em;
+	font-size: 1em;
+	font-weight: 500;
+	font-family: inherit;
+	color: var(--light-button-text);
+	background-color: var(--light-button-background);
+	transition: border-color 0.25s;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	outline: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+button:hover {
+	border-color: var(--light-button-border);
+}
+
+button:active {
+	border-color: var(--light-button-border);
+	background-color: var(--light-button-active-background);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		color: var(--dark-text);
+		background-color: var(--dark-background);
+	}
+
+	a:hover {
+		color: var(--dark-link-hover);
+	}
+
+	input,
+	button {
+		color: var(--dark-button-text);
+		background-color: var(--dark-button-background);
+	}
+
+	button:active {
+		background-color: var(--dark-button-active-background);
+	}
+}
+
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+/* Top-nav and main */
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+
+/* Splits screen vertically into two sections of size 1fr and 3fr */
+.topnav-and-main {
+	margin: 0px 20px;
+
+	grid-template-areas:
+		"top-nav"
+		"main";
+	grid-template-rows: auto 3fr;
+	grid-template-columns: 1fr;
+	display: grid;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Top-nav */
+/* ------------------------------------------------------------------------- */
+
+#top-nav {
+	grid-area: top-nav;
+
+	overflow: hidden;
+    border-bottom: 1px solid var(--custom-black-2);
+
+	grid-template-areas: "top-nav-logo gap top-nav-content";
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr 20px 3fr;
+	display: grid;
+}
+
+#top-nav-logo {
+	grid-area: top-nav-logo;
+
+}
+
+#top-nav-content {
+	grid-area: top-nav-content;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style the search box inside the navigation bar */
+#top-nav-content input[type=text] {
+    width: 80%;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Main */
+/* ------------------------------------------------------------------------- */
+
+#main {
+	grid-area: main;
+
+	grid-template-areas: "main-sidebar gap main-content";
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr 20px 3fr;
+	display: grid;
+}
+
+#main-sidebar {
+	grid-area: main-sidebar;
+}
+
+#main-sidebar div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+    align-items: center;
+}
+
+#main-content {
+	grid-area: main-content;
+}
