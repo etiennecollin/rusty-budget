@@ -36,7 +36,10 @@ pub fn app() -> Html {
 
                     let new_message = invoke(
                         "search",
-                        to_value(&Arg::Search { input: &*search_input }).unwrap(),
+                        to_value(&Arg::Search {
+                            input: &*search_input,
+                        })
+                        .unwrap(),
                     )
                     .await
                     .as_string()
