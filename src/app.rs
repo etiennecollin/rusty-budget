@@ -69,7 +69,8 @@ pub fn app() -> Html {
         <main class="topnav-and-main">
             // <!-- Top navigation -->
             <section id="top-nav">
-                <div id="top-nav-logo">
+                <div id="top-nav-logo" class="row">
+                    <img src="public/logo.png" class="logo" alt="RustyBudget logo"/>
                     <h1>{"RustyBudget"}</h1>
                 </div>
                 <div id="top-nav-content">
@@ -92,9 +93,11 @@ pub fn app() -> Html {
                 <div id="main-content">
                     <p>{"Recent Transactions"}</p>
                     <p>{"Add Transaction"}</p>
-                    <button type="button" class="logo">{"Add Transaction"}</button>
-                    <p class="logo"><b>{ &*search_message }</b></p>
-                    <img src="public/tauri.svg" class="logo" alt="Test logo"/>
+                    <button type="button">{"Add Transaction"}</button>
+                    <p><b>{ &*search_message }</b></p>
+                    <p>
+                    {"Lorem ipsum dolor sit amet. Ut accusamus quam et tenetur iure quo aspernatur dolores. Sed suscipit atque et animi ducimus est ullam sunt ut corporis velit et sint corrupti ex reiciendis consequatur et optio dolores. Id corporis iste At aspernatur itaque ut quos explicabo. Quo earum galisum ex asperiores nesciunt qui repellendus nesciunt non dolores ullam eos dolores deserunt aut quidem tempora ab voluptatem quia. Et nisi velit aut repellat animi non distinctio atque. A debitis mollitia et laudantium sequi ut pariatur omnis. Et sunt expedita rem ipsa tempore aut sunt alias ut aspernatur enim et rerum mollitia."}
+                    </p>
                 </div>
             </section>
         </main>

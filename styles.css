@@ -1,36 +1,45 @@
 :root {
-    --white: #ffffff;
-    --accent-color-1: #646cff;
-    --accent-color-1-faded: #535bf2;
-    --accent-color-2: #24c8db;
-    --custom-white-light: #f6f6f6;
-    --custom-white-dark: #e8e8e8;
-    --custom-black-1: #0f0f0f;
-    --custom-black-1-faded-1: #0f0f0f98;
-    --custom-black-1-faded-2: #0f0f0f69;
-    --custom-black-2: #2f2f2f;
+	--white: #ffffff;
+	--accent-color-1: #646cff;
+	--accent-color-1-faded: #535bf2;
+	--accent-color-2: #24c8db;
+	--custom-white-light: #f6f6f6;
+	--custom-white-dark: #e8e8e8;
+	--custom-black-1: #0f0f0f;
+	--custom-black-1-faded-1: #0f0f0f98;
+	--custom-black-1-faded-2: #0f0f0f69;
+	--custom-black-2: #2f2f2f;
 
-    --link-text: var(--accent-color-1);
+	--link-text: var(--accent-color-1);
 
-    --dark-link-hover: var(--accent-color-2);
-    --dark-text: var(--custom-white-light);
-    --dark-background: var(--custom-black-2);
-    --dark-button-text: var(--white);
-    --dark-button-background: var(--custom-black-1-faded-1);
-    --dark-button-active-background: var(--custom-black-1-faded-2);
+	--dark-link-hover: var(--accent-color-2);
+	--dark-text: var(--custom-white-light);
+	--dark-background: var(--custom-black-2);
+	--dark-button-text: var(--white);
+	--dark-button-background: var(--custom-black-1-faded-1);
+	--dark-button-active-background: var(--custom-black-1-faded-2);
 
-    --light-link-hover: var(--accent-color-1-faded);
-    --light-text: var(--custom-black-1);
-    --light-background: var(--custom-white-light);
-    --light-button-border: var(--accent-color-1-faded);
-    --light-button-text: var(--custom-black-1);
-    --light-button-background: var(--white);
-    --light-button-active-background: var(--custom-white-dark);
+	--light-link-hover: var(--accent-color-1-faded);
+	--light-text: var(--custom-black-1);
+	--light-background: var(--custom-white-light);
+	--light-button-border: var(--accent-color-1-faded);
+	--light-button-text: var(--custom-black-1);
+	--light-button-background: var(--white);
+	--light-button-active-background: var(--custom-white-dark);
 
 	font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 	font-size: 16px;
 	line-height: 24px;
 	font-weight: 400;
+
+	/* Prevent selecting text */
+	user-select: none; /* Standard syntax */
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+
+	/* Other */
+	cursor: default; /* Prevent I cursor on text */
+	overflow: hidden; /* Prevent scroll on things that shouldn't scroll*/
 
 	color: var(--light-text);
 	background-color: var(--light-background);
@@ -43,7 +52,6 @@
 }
 
 .container {
-	margin: 0;
 	padding-top: 10vh;
 	display: flex;
 	flex-direction: column;
@@ -53,18 +61,8 @@
 
 .row {
 	display: flex;
+	flex-direction: row;
 	justify-content: center;
-}
-
-.logo {
-	height: 6em;
-	padding: 1.5em;
-	will-change: filter;
-	transition: 0.75s;
-}
-
-.logo:hover {
-	filter: drop-shadow(0 0 2em var(--accent-color-2));
 }
 
 a {
@@ -78,8 +76,9 @@ a:hover {
 	color: var(--light-link-hover);
 }
 
-h1 {
-	text-align: center;
+img {
+	pointer-events: none;
+	-webkit-touch-callout: none;
 }
 
 input,
@@ -139,7 +138,7 @@ button:active {
 
 /* Splits screen vertically into two sections of size 1fr and 3fr */
 .topnav-and-main {
-	margin: 0px 20px;
+	padding: 0px 20px;
 
 	grid-template-areas:
 		"top-nav"
@@ -157,30 +156,35 @@ button:active {
 	grid-area: top-nav;
 
 	overflow: hidden;
-    border-bottom: 1px solid var(--custom-black-2);
+	border-bottom: 1px solid var(--custom-black-2);
 
 	grid-template-areas: "top-nav-logo gap top-nav-content";
 	grid-template-rows: 1fr;
-	grid-template-columns: 1fr 20px 3fr;
+	grid-template-columns: auto 2rem 3fr;
 	display: grid;
 }
 
 #top-nav-logo {
 	grid-area: top-nav-logo;
+	align-items: center;
+}
 
+#top-nav-logo > img {
+	height: 3rem;
+	margin-right: 0.5rem;
 }
 
 #top-nav-content {
 	grid-area: top-nav-content;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 /* Style the search box inside the navigation bar */
-#top-nav-content input[type=text] {
-    width: 80%;
+#top-nav-content input[type="text"] {
+	width: 80%;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -192,7 +196,7 @@ button:active {
 
 	grid-template-areas: "main-sidebar gap main-content";
 	grid-template-rows: 1fr;
-	grid-template-columns: 1fr 20px 3fr;
+	grid-template-columns: auto 2rem 3fr;
 	display: grid;
 }
 
@@ -204,9 +208,11 @@ button:active {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-    align-items: center;
+	align-items: center;
 }
 
 #main-content {
 	grid-area: main-content;
+	overflow: scroll;
+	height: calc(100vh - 40px);
 }
