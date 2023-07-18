@@ -1,3 +1,4 @@
+use rusty_budget_ui::components::{AddTransaction, RecentTransactions, TestComponent};
 use serde::{Deserialize, Serialize};
 use serde_wasm_bindgen::to_value;
 use wasm_bindgen::prelude::*;
@@ -93,36 +94,11 @@ pub fn app() -> Html {
                 </div>
                 <div id="main-content">
                     <div id="main-content-left" class="container">
-                        <h1>{"Recent Transactions"}</h1>
-                        <table id="recent-transactions">
-                            <thead>
-                                <th id="recent-transactions-description">{"Description"}</th>
-                                <th id="recent-transactions-category">{"Category"}</th>
-                                <th id="recent-transactions-date">{"Date"}</th>
-                                <th id="recent-transactions-amount">{"Amount"}</th>
-                            </thead>
-                            <tbody id="recent-transactions-body">
-                                <tr>
-                                    <td>{"This is a sample description for a random transaction"}</td>
-                                    <td>{"NormalExpenses"}</td>
-                                    <td>{"2023-11-07"}</td>
-                                    <td>{"40500.99"}</td>
-                                </tr>
-                                <tr>
-                                    <td>{"This is a sample description for a random transaction"}</td>
-                                    <td>{"NormalExpenses"}</td>
-                                    <td>{"2023-11-07"}</td>
-                                    <td>{"40500.99"}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <RecentTransactions/>
                         <p><b>{ &*search_message }</b></p>
                     </div>
                     <div id="main-content-right" class="container">
-                        <h1>{"Add Transaction"}</h1>
-                        <div id="add-transaction" class="col-centered">
-                            <button type="button">{"Add Transaction"}</button>
-                        </div>
+                        <AddTransaction/>
                     </div>
                 </div>
             </section>
