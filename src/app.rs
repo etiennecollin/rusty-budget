@@ -69,16 +69,16 @@ pub fn app() -> Html {
     };
 
     html! {
-        <main class="topnav-and-main">
+        <main id="top-bar-and-main">
             // <!-- Top navigation -->
-            <section id="top-nav">
-                <div id="top-nav-logo" class="row">
+            <section id="top-bar">
+                <div id="top-bar-logo" class="row-centered">
                     <img src="public/logo.png" class="logo" alt="RustyBudget logo"/>
                     <h1>{"RustyBudget"}</h1>
                 </div>
-                <div id="top-nav-content">
+                <div id="top-bar-content" class="row-centered">
                     <form class="row" onsubmit={search_callback}>
-                        <input type="text" id="search-input" ref={search_input_ref} placeholder="Search..." />
+                        <input type="text" ref={search_input_ref} placeholder="Search..." />
                         <input type="submit" hidden=true />
                     </form>
                 </div>
@@ -86,21 +86,38 @@ pub fn app() -> Html {
 
             // <!-- Main content -->
             <section id="main">
-                <div id="main-sidebar">
-                    <div>
-                        <a><b>{"Dashboard"}</b></a>
-                        <a><b>{"Account Transactions"}</b></a>
-                        <a><b>{"Add Cash"}</b></a>
-                    </div>
+                <div id="main-sidebar" class="col">
+                    <a><b>{"Dashboard"}</b></a>
+                    <a><b>{"Account Transactions"}</b></a>
+                    <a><b>{"Add Cash"}</b></a>
                 </div>
                 <div id="main-content">
-                    <p>{"Recent Transactions"}</p>
-                    <p>{"Add Transaction"}</p>
-                    <button type="button">{"Add Transaction"}</button>
-                    <p><b>{ &*search_message }</b></p>
-                    <p>
-                    {"Lorem ipsum dolor sit amet. Ut accusamus quam et tenetur iure quo aspernatur dolores. Sed suscipit atque et animi ducimus est ullam sunt ut corporis velit et sint corrupti ex reiciendis consequatur et optio dolores. Id corporis iste At aspernatur itaque ut quos explicabo. Quo earum galisum ex asperiores nesciunt qui repellendus nesciunt non dolores ullam eos dolores deserunt aut quidem tempora ab voluptatem quia. Et nisi velit aut repellat animi non distinctio atque. A debitis mollitia et laudantium sequi ut pariatur omnis. Et sunt expedita rem ipsa tempore aut sunt alias ut aspernatur enim et rerum mollitia."}
-                    </p>
+                    <div id="main-content-left" class="container">
+                        <h1>{"Recent Transactions"}</h1>
+                        <table id="recent-transactions">
+                            <thead>
+                                <th id="recent-transactions-description">{"Description"}</th>
+                                <th id="recent-transactions-category">{"Category"}</th>
+                                <th id="recent-transactions-date">{"Date"}</th>
+                                <th id="recent-transactions-amount">{"Amount"}</th>
+                            </thead>
+                            <tbody id="recent-transactions-body">
+                                <tr>
+                                    <td>{"This is a sample description for a random transaction"}</td>
+                                    <td>{"NormalExpenses"}</td>
+                                    <td>{"2023-11-07"}</td>
+                                    <td>{"40500.99"}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p><b>{ &*search_message }</b></p>
+                    </div>
+                    <div id="main-content-right" class="container">
+                        <h1>{"Add Transaction"}</h1>
+                        <div id="add-transaction" class="col-centered">
+                            <button type="button">{"Add Transaction"}</button>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
