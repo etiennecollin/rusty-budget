@@ -1,150 +1,155 @@
 :root {
-	--spacing-size: 0.5rem;
-	--border-radius: 15px;
-	--border-width: 2px;
-	--gap-size: 2rem;
+    --spacing-size: 0.5rem;
+    --border-radius: 15px;
+    --border-width: 2px;
+    --gap-size: 1rem;
 
-	--accent-color: #88aad6;
+    --accent-color: #88aad6;
 
-	/* Set colors for light theme */
-	--text: #1e1e1e;
-	--link-hover: var(--accent-color);
-	--background: #f6f6f6;
-	--container-background: #f8f8f8;
-	--container-border: #dddddd;
-	--sidebar-background: #fcfcfc;
-	--border-color: #c0c0c0;
-	--button-border: #e1e1e1;
-	--button-border-hover: #1e1e1e;
-	--button-background: #f7f7f7;
-	--button-active-background: #ffffff;
-	--button-clicked-background: #fcfcfc;
+    /* Set colors for light theme */
+    --text: #1e1e1e;
+    --link-hover: var(--accent-color);
+    --background: #f6f6f6;
+    --container-background: #f8f8f8;
+    --container-border: #dddddd;
+    --sidebar-background: #fcfcfc;
+    --border-color: #c0c0c0;
+    --button-border: #e1e1e1;
+    --button-border-hover: #1e1e1e;
+    --button-background: #f7f7f7;
+    --button-active-background: #ffffff;
+    --button-clicked-background: #fcfcfc;
 }
 
 @media (prefers-color-scheme: dark) {
-	:root {
-		/* Set colors for dark theme */
-		--text: #ffffff;
-		--link-hover: var(--accent-color);
-		--background: #282828;
-		--container-background: #2f2f2f;
-		--container-border: #414141;
-		--sidebar-background: #383838;
-		--border-color: #565656;
-		--button-border: #515151;
-		--button-border-hover: #ffffff;
-		--button-background: #333333;
-		--button-active-background: #666666;
-		--button-clicked-background: #888888;
-	}
+    :root {
+        /* Set colors for dark theme */
+        --text: #ffffff;
+        --link-hover: var(--accent-color);
+        --background: #282828;
+        --container-background: #2f2f2f;
+        --container-border: #414141;
+        --sidebar-background: #383838;
+        --border-color: #565656;
+        --button-border: #515151;
+        --button-border-hover: #ffffff;
+        --button-background: #333333;
+        --button-active-background: #666666;
+        --button-clicked-background: #888888;
+    }
 }
 
 :root {
-	font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-	font-size: 16px;
-	line-height: 24px;
-	font-weight: 400;
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
 
-	/* Prevent selecting text */
-	user-select: none; /* Standard syntax */
-	-webkit-user-select: none; /* Safari */
-	-ms-user-select: none; /* IE 10 and IE 11 */
+    /* Prevent selecting text */
+    user-select: none;
+    /* Standard syntax */
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
 
-	/* Other */
-	cursor: default; /* Prevent I cursor on text */
-	overflow: hidden; /* Prevent scroll on things that shouldn't scroll*/
+    /* Other */
+    cursor: default;
+    /* Prevent I cursor on text */
+    overflow: hidden;
+    /* Prevent scroll on things that shouldn't scroll*/
 
-	color: var(--text);
-	background-color: var(--background);
+    color: var(--text);
+    background-color: var(--background);
 
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-text-size-adjust: 100%;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
 .container {
-	padding-top: 10vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
+    padding-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 
-	border: var(--border-width) solid var(--container-border);
-	border-radius: var(--border-radius);
-	background-color: var(--container-background);
+    border: var(--border-width) solid var(--container-border);
+    border-radius: var(--border-radius);
+    background-color: var(--container-background);
 
-	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-	outline: none;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    outline: none;
 }
 
 .row {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .row-centered {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .col {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .col-centered {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 a {
-	font-weight: 500;
-	text-decoration: inherit;
-	cursor: pointer;
-	color: var(--text);
+    font-weight: 500;
+    text-decoration: inherit;
+    cursor: pointer;
+    color: var(--text);
 }
 
 a:hover {
-	color: var(--link-hover);
+    color: var(--link-hover);
 }
 
 img {
-	pointer-events: none;
-	-webkit-touch-callout: none;
+    pointer-events: none;
+    -webkit-touch-callout: none;
 }
 
 input,
 button {
-	border-radius: 8px;
-	border: var(--border-width) solid var(--button-border);
-	padding: 0.6em 1.2em;
-	font-size: 1em;
-	font-weight: 500;
-	font-family: inherit;
-	color: var(--text);
-	background-color: var(--button-background);
-	transition: border-color 0.25s;
-	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-	outline: none;
+    border-radius: 8px;
+    border: var(--border-width) solid var(--button-border);
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    color: var(--text);
+    background-color: var(--button-background);
+    transition: border-color 0.25s;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    outline: none;
 }
 
 button {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 button:hover {
-	border-color: var(--button-border-hover);
+    border-color: var(--button-border-hover);
 }
 
 button:active {
-	background-color: var(--button-clicked-background);
+    background-color: var(--button-clicked-background);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -155,12 +160,12 @@ button:active {
 
 /* Splits screen vertically into two sections of size 1fr and 3fr */
 #top-bar-and-main {
-	grid-template-areas:
-		"top-bar"
-		"main";
-	grid-template-rows: auto 3fr;
-	grid-template-columns: 1fr;
-	display: grid;
+    grid-template-areas:
+        "top-bar"
+        "main";
+    grid-template-rows: auto 3fr;
+    grid-template-columns: 1fr;
+    display: grid;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -168,33 +173,33 @@ button:active {
 /* ------------------------------------------------------------------------- */
 
 #top-bar {
-	grid-area: top-bar;
+    grid-area: top-bar;
 
-	border-bottom: var(--border-width) solid var(--border-color);
+    border-bottom: var(--border-width) solid var(--border-color);
 
-	grid-template-areas: "top-bar-logo top-bar-content";
-	grid-template-rows: 1fr;
-	grid-template-columns: auto 3fr;
-	display: grid;
+    grid-template-areas: "top-bar-logo top-bar-content";
+    grid-template-rows: 1fr;
+    grid-template-columns: auto 3fr;
+    display: grid;
 }
 
 #top-bar-logo {
-	grid-area: top-bar-logo;
-	align-items: center;
+    grid-area: top-bar-logo;
+    align-items: center;
 }
 
-#top-bar-logo > img {
-	height: 3rem;
-	margin-right: 0.5rem;
+#top-bar-logo>img {
+    height: 3rem;
+    margin-right: 0.5rem;
 }
 
 #top-bar-content {
-	grid-area: top-bar-content;
+    grid-area: top-bar-content;
 }
 
 /* Style the search box inside the navigation bar */
 #top-bar-content input[type="text"] {
-	width: 80%;
+    width: 80%;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -202,14 +207,14 @@ button:active {
 /* ------------------------------------------------------------------------- */
 
 #main {
-	grid-area: main;
+    grid-area: main;
 
-	padding: var(--spacing-size);
+    padding: var(--spacing-size);
 
-	grid-template-areas: "main-sidebar gap main-content";
-	grid-template-rows: 1fr;
-	grid-template-columns: auto var(--gap-size) 3fr;
-	display: grid;
+    grid-template-areas: "main-sidebar gap main-content";
+    grid-template-rows: 1fr;
+    grid-template-columns: auto calc(var(--gap-size) / 2) 3fr;
+    display: grid;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -217,15 +222,15 @@ button:active {
 /* ------------------------------------------------------------------------- */
 
 #main-sidebar {
-	grid-area: main-sidebar;
+    grid-area: main-sidebar;
 
-	padding: var(--spacing-size);
+    padding: var(--spacing-size);
 
-	border-radius: 3px;
-	background-color: var(--sidebar-background);
-	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    background-color: var(--sidebar-background);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
-	height: fit-content;
+    height: fit-content;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -233,12 +238,12 @@ button:active {
 /* ------------------------------------------------------------------------- */
 
 #main-content {
-	grid-area: main-content;
+    grid-area: main-content;
 
-	grid-template-areas: "main-content-left gap main-content-right";
-	grid-template-rows: 1fr;
-	grid-template-columns: 2fr var(--gap-size) 1fr;
-	display: grid;
+    grid-template-areas: "main-content-left gap main-content-right";
+    grid-template-rows: 1fr;
+    grid-template-columns: 2fr var(--gap-size) 1fr;
+    display: grid;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -246,17 +251,17 @@ button:active {
 /* ------------------------------------------------------------------------- */
 
 #main-content-left {
-	grid-area: main-content-left;
+    grid-area: main-content-left;
 
-	/* Uncomment if scrolling breaks */
-	/* height: calc(100vh - 40px); */
-	overflow: scroll;
+    /* Uncomment if scrolling breaks */
+    /* height: calc(100vh - 40px); */
+    overflow: scroll;
 
-	padding: 0rem var(--spacing-size);
+    padding: 0rem var(--spacing-size);
 }
 
-#main-content-left > h1 {
-	text-align: center;
+#main-content-left>h1 {
+    text-align: center;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -264,56 +269,46 @@ button:active {
 /* ------------------------------------------------------------------------- */
 
 #recent-transactions {
-	border-collapse: collapse;
-	border-bottom: var(--border-width) solid var(--border-color);
-	width: 100%;
+    border-collapse: collapse;
+    border-bottom: var(--border-width) solid var(--border-color);
+    width: 100%;
 }
 
 #recent-transactions th,
 #recent-transactions td {
-	text-align: left;
-	padding: 10px;
+    text-align: center;
+    padding: 10px;
+    border-left: var(--border-width) solid var(--border-color);
+    border-right: var(--border-width) solid var(--border-color);
+    border-bottom: var(--border-width) solid var(--border-color);
 }
 
-#recent-transactions > thead {
-	border-bottom: var(--border-width) solid var(--border-color);
-}
-
-/* First column has 30px width */
+/* First column has auto width */
 /* #recent-transactions > thead th:first-child,
 #recent-transactions > tbody > tr td:first-child {
 	width: auto;
 } */
-
-#recent-transactions-category {
-	width: 20px;
-}
-
-/* Last column has right-aligned text */
-#recent-transactions > thead th:last-child,
-#recent-transactions > tbody > tr td:last-child {
-	text-align: right;
-}
 
 /* ------------------------------------------------------------------------- */
 /* Main Content Right */
 /* ------------------------------------------------------------------------- */
 
 #main-content-right {
-	grid-area: main-content-right;
+    grid-area: main-content-right;
 
-	padding: 0rem var(--spacing-size);
+    padding: 0rem var(--spacing-size);
 }
 
-#main-content-right > h1 {
-	text-align: center;
+#main-content-right>h1 {
+    text-align: center;
 }
 
 #add-transaction {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 #add-transaction button {
-	width: 75%;
+    width: 75%;
 }

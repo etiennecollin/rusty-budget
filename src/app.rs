@@ -108,6 +108,12 @@ pub fn app() -> Html {
                                     <td>{"2023-11-07"}</td>
                                     <td>{"40500.99"}</td>
                                 </tr>
+                                <tr>
+                                    <td>{"This is a sample description for a random transaction"}</td>
+                                    <td>{"NormalExpenses"}</td>
+                                    <td>{"2023-11-07"}</td>
+                                    <td>{"40500.99"}</td>
+                                </tr>
                             </tbody>
                         </table>
                         <p><b>{ &*search_message }</b></p>
