@@ -1,4 +1,4 @@
-use crate::util::*;
+use crate::utils::*;
 
 /// Represents a person.
 #[derive(Clone)]
