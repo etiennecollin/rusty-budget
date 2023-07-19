@@ -1,4 +1,4 @@
-use rusty_budget_ui::components::{AddTransaction, RecentTransactions, TestComponent};
+use rusty_budget_ui::components::*;
 use serde::{Deserialize, Serialize};
 use serde_wasm_bindgen::to_value;
 use wasm_bindgen::prelude::*;
@@ -78,7 +78,7 @@ pub fn app() -> Html {
                     <h1>{"RustyBudget"}</h1>
                 </div>
                 <div id="top-bar-content" class="row-centered">
-                    <form class="row" onsubmit={search_callback}>
+                    <form onsubmit={search_callback}>
                         <input type="text" ref={search_input_ref} placeholder="Search..." />
                         <input type="submit" hidden=true />
                     </form>
@@ -92,14 +92,14 @@ pub fn app() -> Html {
                     <a><b>{"Account Transactions"}</b></a>
                     <a><b>{"Add Cash"}</b></a>
                 </div>
-                <div id="main-content">
-                    <div id="main-content-left" class="container">
-                        <RecentTransactions/>
-                        <p><b>{ &*search_message }</b></p>
+                <div id="main-content-left" class="container">
+                    <RecentTransactions/>
+                    <p><b>{ &*search_message }</b></p>
+                    <div>
                     </div>
-                    <div id="main-content-right" class="container">
-                        <AddTransaction/>
-                    </div>
+                </div>
+                <div id="main-content-right" class="container">
+                    <AddTransaction/>
                 </div>
             </section>
         </main>
