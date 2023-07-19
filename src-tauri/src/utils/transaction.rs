@@ -1,5 +1,4 @@
 use crate::utils::*;
-use chrono::NaiveDate;
 use serde::{Deserialize, Serialize};
 
 /// Represents a transaction.
@@ -8,7 +7,7 @@ pub struct Transaction {
     transaction_type: TransactionType,
     description: String,
     id: u128,
-    date: NaiveDate,
+    date: String,
     amount: Amount,
 }
 
@@ -29,7 +28,7 @@ impl Transaction {
             transaction_type: transaction_type,
             description: description,
             id: generate_id(),
-            date: parse_date_to_naivedate(date),
+            date: verify_date_format(date),
             amount: amount,
         }
     }
@@ -61,8 +60,8 @@ impl Transaction {
     }
 
     /// Returns the date of the transaction.
-    pub fn get_date(&self) -> NaiveDate {
-        self.date
+    pub fn get_date(&self) -> String {
+        self.date.clone()
     }
 
     /// Sets the date of the transaction.
@@ -71,7 +70,7 @@ impl Transaction {
     /// # Panics
     /// Panics if the date is invalid or improperly formatted.
     pub fn set_date(&mut self, date_string: String) {
-        self.date = parse_date_to_naivedate(date_string);
+        self.date = verify_date_format(date_string);
     }
 
     /// Returns the id of the transaction.

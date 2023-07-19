@@ -13,17 +13,17 @@ pub fn generate_id() -> u128 {
         .as_nanos()
 }
 
-// Parses a date string to a NaiveDate.
+/// Verifies that a date is properly formatted.
 /// The date must be in the format: 'YYYY-MM-DD' and be valid.
 /// For example: '2021-11-30'.
 /// # Panics
 /// Panics if the date is invalid or improperly formatted.
-pub fn parse_date_to_naivedate(date_string: String) -> NaiveDate {
+pub fn verify_date_format(date: String) -> String {
     let date: Result<NaiveDate, chrono::ParseError> =
-        NaiveDate::parse_from_str(date_string.as_str(), "%Y-%m-%d");
+        NaiveDate::parse_from_str(date.as_str(), "%Y-%m-%d");
 
     match date {
-        Ok(_) => date.unwrap(),
+        Ok(_) => date.unwrap().to_string(),
         Err(_) => panic!("Invalid date"),
     }
 }
