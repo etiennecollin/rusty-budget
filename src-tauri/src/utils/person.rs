@@ -1,7 +1,9 @@
+use serde::{Deserialize, Serialize};
+
 use crate::utils::*;
 
 /// Represents a person.
-#[derive(Clone)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Person {
     name: String,
     id: u128,

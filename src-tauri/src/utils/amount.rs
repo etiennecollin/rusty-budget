@@ -1,7 +1,9 @@
 use std::ops::{Add, Sub};
 
+use serde::{Deserialize, Serialize};
+
 /// Represents a currency symbol.
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+#[derive(Serialize, Deserialize, Clone, Copy, PartialEq, Eq, Debug)]
 pub enum CurrencySymbol {
     CAD,
     USD,
@@ -9,7 +11,7 @@ pub enum CurrencySymbol {
 }
 
 /// Represents an amount of money in cents.
-#[derive(Clone, Copy, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Amount {
     amount_cents: i64,
     currency_symbol: CurrencySymbol,

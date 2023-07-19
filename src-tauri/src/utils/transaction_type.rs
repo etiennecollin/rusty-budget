@@ -1,5 +1,7 @@
+use serde::{Deserialize, Serialize};
+
 /// TransactionType is an enum that represents the type of transaction.
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+#[derive(Serialize, Deserialize, Clone, PartialEq, Eq, Debug)]
 pub enum TransactionType {
     Income(IncomeCategory),
     Expense(ExpenseCategory),
@@ -25,7 +27,7 @@ impl TransactionType {
 }
 
 /// IncomeCategory is an enum that represents the category of income.
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+#[derive(Serialize, Deserialize, Clone, Copy, PartialEq, Eq, Debug)]
 pub enum IncomeCategory {
     Salary,
     Gift,
@@ -33,7 +35,7 @@ pub enum IncomeCategory {
 }
 
 /// ExpenseCategory is an enum that represents the category of expense.
-#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+#[derive(Serialize, Deserialize, Clone, Copy, PartialEq, Eq, Debug)]
 pub enum ExpenseCategory {
     Housing,
     Utilities,

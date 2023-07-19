@@ -1,8 +1,9 @@
 use crate::utils::*;
 use chrono::NaiveDate;
+use serde::{Deserialize, Serialize};
 
 /// Represents a transaction.
-#[derive(Clone)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Transaction {
     transaction_type: TransactionType,
     description: String,
@@ -80,7 +81,7 @@ impl Transaction {
 
     /// Returns the amount of the transaction.
     pub fn get_amount(&self) -> Amount {
-        self.amount
+        self.amount.clone()
     }
 
     /// Sets the amount of the transaction.

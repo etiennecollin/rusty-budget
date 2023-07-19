@@ -1,7 +1,9 @@
+use serde::{Deserialize, Serialize};
+
 use crate::utils::*;
 
 /// Represents a bank account.
-#[derive(Clone)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Account {
     description: String,
     id: u128,
@@ -40,7 +42,7 @@ impl Account {
 
     /// Returns the balance of the account.
     pub fn get_balance(&self) -> Amount {
-        self.balance
+        self.balance.clone()
     }
 
     /// Sets the balance of the account.
