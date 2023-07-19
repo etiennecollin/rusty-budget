@@ -96,6 +96,9 @@ pub fn app() -> Html {
                     <RecentTransactions/>
                     <p><b>{ &*search_message }</b></p>
                     <div>
+                        <TestComponent min_value={0} max_value={20}/>
+                        <TestComponent min_value={5} max_value={30}/>
+                        <ListComponent/>
                     </div>
                 </div>
                 <div id="main-content-right" class="container">
