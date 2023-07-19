@@ -31,28 +31,90 @@ impl Component for RecentTransactions {
         html! {
             <div>
                 <h1>{"Recent Transactions"}</h1>
-                <table id="recent-transactions">
-                    <thead>
-                        <th id="recent-transactions-description">{"Description"}</th>
-                        <th id="recent-transactions-category">{"Category"}</th>
-                        <th id="recent-transactions-date">{"Date"}</th>
-                        <th id="recent-transactions-amount">{"Amount"}</th>
-                    </thead>
-                    <tbody id="recent-transactions-body">
-                        <tr>
-                            <td>{"This is a sample description for a random transaction"}</td>
-                            <td>{"NormalExpenses"}</td>
-                            <td>{"2023-11-07"}</td>
-                            <td>{"40500.99"}</td>
-                        </tr>
-                        <tr>
-                            <td>{"This is a sample description for a random transaction"}</td>
-                            <td>{"NormalExpenses"}</td>
-                            <td>{"2023-11-07"}</td>
-                            <td>{"40500.99"}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div>
+                    <table id="recent-transactions">
+                        <thead>
+                            <th id="recent-transactions-description">{"Description"}</th>
+                            <th id="recent-transactions-category">{"Category"}</th>
+                            <th id="recent-transactions-date">{"Date"}</th>
+                            <th id="recent-transactions-amount">{"Amount"}</th>
+                        </thead>
+                        <tbody id="recent-transactions-body">
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                            <tr>
+                                <td>{"This is a sample description for a random transaction"}</td>
+                                <td>{"NormalExpenses"}</td>
+                                <td>{"2023-11-07"}</td>
+                                <td>{"40500.99"}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         }
     }
