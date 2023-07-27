@@ -1,9 +1,10 @@
 use serde::{Deserialize, Serialize};
 
+use crate::structs::*;
 use crate::utils::*;
 
 /// Represents a bank account.
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Default, Debug)]
 pub struct Account {
     description: String,
     id: u128,
@@ -14,7 +15,7 @@ pub struct Account {
 /// Implements the Account struct.
 impl Account {
     /// Creates a new account with the given description and currency symbol.
-    pub fn new(description: String, currency_symbol: CurrencySymbol) -> Account {
+    pub fn new(description: String, currency_symbol: CurrencySymbol) -> Self {
         Account {
             description: description,
             id: generate_id(),

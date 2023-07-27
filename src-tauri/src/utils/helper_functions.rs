@@ -1,8 +1,7 @@
 //! Helper functions for the application.
-
 use chrono::NaiveDate;
-use serde::{de::DeserializeOwned, Deserialize, Serialize};
-use std::{time::SystemTime, vec};
+use serde::de::DeserializeOwned;
+use std::time::SystemTime;
 
 /// Generates a unique id based on the current time in nanoseconds.
 /// # Panics
@@ -12,6 +11,32 @@ pub fn generate_id() -> u128 {
         .duration_since(SystemTime::UNIX_EPOCH)
         .unwrap()
         .as_nanos()
+}
+
+pub fn format_dollar_to_cents(amount: String) -> String {
+    let mut amount = amount;
+
+    // Check if the amount has cents and format it properly
+    if amount.contains(".") {
+        // Split the amount into dollars and cents and store them in a vector as strings
+        let amount_split: Vec<String> = amount.split(".").map(String::from).collect();
+
+        // Make sure the cents are two digits
+        match amount_split[1].len() {
+            0 => amount.push_str("00"),
+            1 => amount.push_str("0"),
+            _ => {}
+        }
+
+        // Remove the decimal point
+        amount = amount.replace(".", "")
+    } else {
+        // Add two zeros to the end of the amount
+        amount.push_str("00");
+    }
+
+    // Return the amount in cents
+    amount
 }
 
 /// Verifies that a date is properly formatted.
@@ -45,5 +70,5 @@ pub fn deserialize<T>(encoded_obj: &Vec<u8>) -> T
 where
     T: DeserializeOwned,
 {
-    bincode::deserialize(encoded_obj).unwrap()
+    bincode::deserialize(encoded_obj).expect("Unable to deserialize object")
 }

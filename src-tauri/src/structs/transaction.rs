@@ -1,8 +1,9 @@
+use crate::structs::*;
 use crate::utils::*;
 use serde::{Deserialize, Serialize};
 
 /// Represents a transaction.
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Transaction {
     transaction_type: TransactionType,
     description: String,
@@ -23,7 +24,7 @@ impl Transaction {
         description: String,
         date: String,
         amount: Amount,
-    ) -> Transaction {
+    ) -> Self {
         Transaction {
             transaction_type: transaction_type,
             description: description,
