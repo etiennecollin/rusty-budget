@@ -8,6 +8,7 @@
 
     /* Set colors for light theme */
     --text: #1e1e1e;
+    --text-invalid: #b3b3b3;
     --link-hover: var(--accent-color);
     --background: #f6f6f6;
     --container-background: #f8f8f8;
@@ -26,6 +27,7 @@
     :root {
         /* Set colors for dark theme */
         --text: #ffffff;
+        --text-invalid: #a9a9a9;
         --link-hover: var(--accent-color);
         --background: #282828;
         --container-background: #2f2f2f;
@@ -145,12 +147,22 @@ img {
     -webkit-touch-callout: none;
 }
 
+select {
+    appearance: none;
+}
+
+select:invalid {
+    color: var(--text-invalid);
+}
+
 input,
-button {
-    border-radius: 8px;
+button,
+select {
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
     border: var(--border-width) solid var(--button-border);
     padding: 0.6em 1.2em;
-    font-size: 1em;
+    font-size: 1rem;
     font-weight: 500;
     font-family: inherit;
     color: var(--text);
@@ -170,30 +182,35 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
-li {
-    text-align: left;
-}
-
-button {
+input[type="date"],
+button,
+select {
     cursor: pointer;
 }
 
+input:hover,
+select:hover,
 button:hover {
-    border-color: var(--button-border-hover);
+    border-color: var(--accent-color);
 }
 
 button:active {
     background-color: var(--button-clicked-background);
 }
 
+
+li {
+    text-align: left;
+}
+
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
-/* top-bar and main */
+/* Main */
 /* ------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------- */
 
 /* Splits screen vertically into two sections of size 1fr and 3fr */
-#top-bar-and-main {
+#main {
     grid-template-areas:
         "top-bar"
         "main";
@@ -241,26 +258,26 @@ button:active {
 }
 
 /* ------------------------------------------------------------------------- */
-/* Main */
+/* Content */
 /* ------------------------------------------------------------------------- */
 
-#main {
+#content {
     grid-area: main;
 
     padding: var(--spacing-size);
 
-    grid-template-areas: "main-sidebar gap1 main-content-left gap2 main-content-right";
+    grid-template-areas: "content-sidebar gap1 main-content-left gap2 main-content-right";
     grid-template-rows: 1fr;
     grid-template-columns: auto calc(var(--gap-size) / 2) 2fr var(--gap-size) 1fr;
     display: grid;
 }
 
 /* ------------------------------------------------------------------------- */
-/* Main Sidebar */
+/* Content Sidebar */
 /* ------------------------------------------------------------------------- */
 
-#main-sidebar {
-    grid-area: main-sidebar;
+#content-sidebar {
+    grid-area: content-sidebar;
 
     border-radius: 3px;
     background-color: var(--sidebar-background);
@@ -275,13 +292,13 @@ button:active {
 /* Main Content Left */
 /* ------------------------------------------------------------------------- */
 
-#main-content-left {
+#content-main-left {
     grid-area: main-content-left;
     height: 85vh;
     overflow: auto;
 }
 
-#main-content-left>h1 {
+#content-main-left>h1 {
     text-align: center;
 }
 
@@ -314,13 +331,13 @@ button:active {
 /* Main Content Right */
 /* ------------------------------------------------------------------------- */
 
-#main-content-right {
+#content-main-right {
     grid-area: main-content-right;
 
     height: fit-content;
 }
 
-#main-content-right>h1 {
+#content-main-right>h1 {
     text-align: center;
 }
 
@@ -330,6 +347,22 @@ button:active {
     align-items: center;
 }
 
-#add-transaction button {
+#add-transaction select,
+#add-transaction input {
     width: 75%;
+}
+
+#add-transaction button {
+    width: 50%;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Load file */
+/* ------------------------------------------------------------------------- */
+
+#load-file {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

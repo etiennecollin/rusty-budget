@@ -1,4 +1,4 @@
-use web_sys::{HtmlInputElement, MouseEvent};
+use web_sys::{HtmlInputElement};
 use yew::{html, Component, Html, InputEvent, NodeRef, Properties, TargetCast};
 
 pub enum Msg {
@@ -88,7 +88,7 @@ impl Component for TestComponent {
         }
     }
 
-    fn update(&mut self, ctx: &yew::Context<Self>, msg: Self::Message) -> bool {
+    fn update(&mut self, _ctx: &yew::Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::SetInput(val) => {
                 log::debug!("Setting input value to: {}", val);

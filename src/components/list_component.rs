@@ -1,12 +1,12 @@
 use web_sys::HtmlInputElement;
-use yew::prelude::*;
+use yew::{prelude::*, virtual_dom::VNode};
 
 #[function_component(ListComponent)]
 pub fn list_component() -> Html {
     let name_list = use_state(Vec::new);
     let input_ref = NodeRef::default();
 
-    let on_click = {
+    let on_submit = {
         let name_list = name_list.clone();
         let input_ref = input_ref.clone();
 
@@ -26,21 +26,25 @@ pub fn list_component() -> Html {
         })
     };
 
-    let display_names = (*name_list).iter().map(|name| html! {<li>{name}</li>});
+    let display_names: VNode = (*name_list)
+        .iter()
+        .map(|name| html! {<li>{name}</li>})
+        .collect();
+
     html! {
         <div>
             <div>
             {"List component"}
             </div>
             <div>
-                <form onsubmit={on_click}>
+                <form onsubmit={on_submit}>
                     <input type="text" ref={input_ref} placeholder="input a name"/>
                     <input type="submit" hidden=true value="Add to list"/>
                     <button type="submit">{"Add to list"}</button>
                 </form>
             </div>
             <ul>
-                {for display_names}
+                {display_names}
             </ul>
         </div>
     }

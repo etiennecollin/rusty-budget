@@ -1,110 +1,82 @@
 use rusty_budget_ui::components::*;
-use serde::{Deserialize, Serialize};
+use rusty_budget_ui::utils::*;
 use serde_wasm_bindgen::to_value;
-use wasm_bindgen::prelude::*;
-use wasm_bindgen_futures::spawn_local;
+use yew::platform::spawn_local;
 use yew::prelude::*;
-
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "tauri"])]
-    async fn invoke(cmd: &str, args: JsValue) -> JsValue;
-}
-
-#[derive(Serialize, Deserialize)]
-#[serde(untagged)]
-enum Arg<'a> {
-    Search { input: &'a str },
-}
 
 #[function_component(App)]
 pub fn app() -> Html {
-    let search_input_ref = use_node_ref();
-    let search_input = use_state(|| String::new());
-    let search_message = use_state(|| String::new());
-
+    // Verify that the file is loaded
+    let is_file_loaded = use_state_eq(|| false);
     {
-        let search_input = search_input.clone();
-        let search_input_dep = search_input.clone();
-        let search_message = search_message.clone();
-
-        use_effect_with_deps(
-            move |_| {
-                spawn_local(async move {
-                    if search_input.is_empty() {
-                        return;
-                    }
-
-                    let new_message = invoke(
-                        "search",
-                        to_value(&Arg::Search {
-                            input: &*search_input,
-                        })
+        let is_file_loaded = is_file_loaded.clone();
+        use_effect(move || {
+            spawn_local(async move {
+                is_file_loaded.set(
+                    invoke("is_file_loaded", to_value(&Arg::Nothing).unwrap())
+                        .await
+                        .as_bool()
                         .unwrap(),
-                    )
-                    .await
-                    .as_string()
-                    .unwrap();
-                    search_message.set(new_message);
-                });
-
-                || {}
-            },
-            search_input_dep,
-        );
+                );
+            });
+            || {}
+        });
     }
 
-    let search_callback = {
-        let search_input = search_input.clone();
-        let search_input_ref = search_input_ref.clone();
+    let open_file = {
+        Callback::from(move |_| {
+            // TODO open dialog to select file
+            todo!();
+            let path: String = "temp".to_owned();
 
-        Callback::from(move |e: SubmitEvent| {
-            e.prevent_default();
-            search_input.set(
-                search_input_ref
-                    .cast::<web_sys::HtmlInputElement>()
-                    .unwrap()
-                    .value(),
-            );
+            spawn_local(async move {
+                invoke("open_file", to_value(&Arg::IOFile { path }).unwrap()).await;
+            });
         })
     };
 
-    html! {
-        <main id="top-bar-and-main">
-            // <!-- Top navigation -->
-            <section id="top-bar">
-                <div id="top-bar-logo" class="row-centered">
-                    <img src="public/logo.png" class="logo" alt="RustyBudget logo"/>
-                    <h1>{"RustyBudget"}</h1>
-                </div>
-                <div id="top-bar-content" class="row-centered">
-                    <form onsubmit={search_callback}>
-                        <input type="text" ref={search_input_ref} placeholder="Search..." />
-                        <input type="submit" hidden=true />
-                    </form>
-                </div>
-            </section>
+    let new_file = {
+        Callback::from(move |_| {
+            // TODO create new file with custom page
+            todo!();
+            let path: String = "temp".to_owned();
 
-            // <!-- Main content -->
-            <section id="main">
-                <div id="main-sidebar" class="col">
-                    <a><b>{"Dashboard"}</b></a>
-                    <a><b>{"Account Transactions"}</b></a>
-                    <a><b>{"Add Cash"}</b></a>
-                </div>
-                <div id="main-content-left" class="container">
-                    <RecentTransactions/>
-                    <p><b>{ &*search_message }</b></p>
-                    <div>
-                        <TestComponent min_value={0} max_value={20}/>
-                        <TestComponent min_value={5} max_value={30}/>
-                        <ListComponent/>
+            spawn_local(async move {
+                invoke("new_file", to_value(&Arg::IOFile { path }).unwrap()).await;
+            });
+        })
+    };
+
+    if *is_file_loaded {
+        html! {
+            <main id="main">
+                // <!-- Top navigation -->
+                <section id="top-bar">
+                    <div id="top-bar-logo" class="row-centered">
+                        <img src="public/logo.png" class="logo" alt="RustyBudget logo"/>
+                        <h1>{"RustyBudget"}</h1>
                     </div>
-                </div>
-                <div id="main-content-right" class="container">
-                    <AddTransaction/>
-                </div>
-            </section>
-        </main>
+                    <TopBarContent/>
+                </section>
+
+                // <!-- Main content -->
+                <section id="content">
+                    <ContentSidebar/>
+                    <ContentMain/>
+                </section>
+            </main>
+        }
+    } else {
+        html! {
+            <main id="load-file">
+                <h1>{"Please load a file..."}</h1>
+                <button onclick={open_file}>
+                    {"Open file"}
+                </button>
+                <button onclick={new_file}>
+                    {"New file"}
+                </button>
+            </main>
+        }
     }
 }
