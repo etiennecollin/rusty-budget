@@ -25,6 +25,8 @@
 				"all": true
 			},
 			"dialog": {
+				"ask": true,
+				"confirm": true,
 				"open": true,
 				"save": true
 			}
