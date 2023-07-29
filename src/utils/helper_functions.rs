@@ -1,5 +1,6 @@
 use super::*;
 use serde_wasm_bindgen::to_value;
+use yew::platform::spawn_local;
 use yew::prelude::*;
 use yew::virtual_dom::VNode;
 
@@ -18,7 +19,7 @@ pub async fn get_recent_transactions() -> String {
 pub fn parse_transactions(transactions: &String) -> VNode {
     // Check if there are recent transactions
     if transactions.is_empty() {
-        return html! {<tr><td colspan=4>{"No recent transactions"}</td></tr>};
+        return html! {<tr><td colspan=5>{"No recent transactions"}</td></tr>};
     }
 
     // Convert the recent transactions to a vector of vectors of strings
@@ -40,4 +41,55 @@ pub fn parse_transactions(transactions: &String) -> VNode {
 
     // Return the list of HTML table rows
     transactions_html
+}
+
+/// Returns a tuple containing the transaction kind as a string
+/// and a vector with each transaction category as a strings.
+pub async fn get_transaction_categories(kind: String) -> (String, Vec<String>) {
+    // Fetch the categories from the backend
+    let categories = invoke(
+        "get_transaction_categories",
+        to_value(&Arg::GetTransactionCategories { kind: kind.clone() }).unwrap(),
+    )
+    .await
+    .as_string()
+    .unwrap()
+    .split(",")
+    .map(String::from)
+    .collect();
+
+    // Return the tuple
+    (kind, categories)
+
+}
+
+/// Returns a list containing each currency symbol as a strings.
+pub async fn get_currency_symbols() -> Vec<String> {
+    // Store the currency symbols as a vector of strings
+    // Fetch the currency symbols from the backend
+    let currency_symbols = invoke("get_currency_symbols", to_value(&Arg::Nothing).unwrap())
+        .await
+        .as_string()
+        .unwrap()
+        .split(",")
+        .map(String::from)
+        .collect();
+
+    // Return the list
+    currency_symbols
+}
+
+/// Returns a the currency symbol of the current account as a string.
+pub async fn get_current_account_currency_symbol() -> String {
+    // Store the currency symbols as a vector of strings
+    let currency_symbol = invoke(
+        "get_current_account_currency_symbol",
+        to_value(&Arg::Nothing).unwrap(),
+    )
+    .await
+    .as_string()
+    .unwrap();
+
+    // Return the string
+    currency_symbol
 }
