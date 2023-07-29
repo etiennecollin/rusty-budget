@@ -7,8 +7,8 @@ pub struct Props {
     pub reload: bool,
 }
 
-#[function_component(RecentTransactions)]
-pub fn recent_transactions(props: &Props) -> Html {
+#[function_component(TransactionsRecent)]
+pub fn transactions_recent(props: &Props) -> Html {
     let recent_transactions_state = use_state_eq(|| String::new());
     // Get the recent transactions from the server
     {
@@ -31,6 +31,7 @@ pub fn recent_transactions(props: &Props) -> Html {
                 <table id="recent-transactions">
                     <thead>
                         <th id="recent-transactions-description">{"Description"}</th>
+                        <th id="recent-transactions-kind">{"Kind"}</th>
                         <th id="recent-transactions-category">{"Category"}</th>
                         <th id="recent-transactions-date">{"Date"}</th>
                         <th id="recent-transactions-amount">{"Amount"}</th>

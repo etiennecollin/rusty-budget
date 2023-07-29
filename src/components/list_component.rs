@@ -3,7 +3,7 @@ use yew::{prelude::*, virtual_dom::VNode};
 
 #[function_component(ListComponent)]
 pub fn list_component() -> Html {
-    let name_list = use_state(Vec::new);
+    let name_list = use_state_eq(Vec::<String>::new);
     let input_ref = NodeRef::default();
 
     let on_submit = {

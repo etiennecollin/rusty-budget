@@ -6,8 +6,8 @@ use crate::utils::{invoke, Arg};
 #[function_component(TopBarContent)]
 pub fn top_bar_content() -> Html {
     let search_input_ref = use_node_ref();
-    let search_input = use_state(|| String::new());
-    let search_message = use_state(|| String::new());
+    let search_input = use_state_eq(|| String::new());
+    let search_message = use_state_eq(|| String::new());
 
     {
         let search_input = search_input.clone();
