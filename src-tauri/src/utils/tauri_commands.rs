@@ -1,9 +1,10 @@
 use crate::{structs::*, utils::*};
-use std::fs::{read, write};
+use std::fs::read;
 use std::str::FromStr;
+use std::sync::{Arc, Mutex};
 use strum::IntoEnumIterator;
+use tauri::api::dialog::FileDialogBuilder;
 use tauri::State;
-use tauri_api::dialog::{self, Response};
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command(rename_all = "snake_case")]
@@ -139,28 +140,40 @@ pub fn get_currency_symbols() -> String {
 
 /// Opens a profile and sets the current profile and account based on the profile serialized in the profile.
 /// # Panics
-/// Panics if the profile cannot be read, if the current profile or account cannot be locked,
-/// if the loaded status of the current profile or account cannot be locked, or if the profile cannot be deserialized.
+/// Panics if the profile cannot be read and deserialized, or if the current profile, path, current profile path
+/// or current profile load state cannot be locked.
 #[tauri::command(rename_all = "snake_case")]
 pub fn open_profile(app_state: State<AppState>) {
-    // Get the path of the profile
-    let path: String;
+    // ===============================================================================//
+    // tauri::api::dialog::FileDialogBuilder
+    // ===============================================================================//
+    let path = Arc::new(Mutex::new(String::new()));
 
+    let do_break = Arc::new(Mutex::new(false));
     loop {
-        // TODO: Move to tauri::api::dialog because tauri_api::dialog is deprecated
-        let response = dialog::select(Some("RustyBudget"), Some(".")).unwrap();
-        match response {
-            Response::Okay(selected_path) => {
-                // Set the profile path
-                path = selected_path;
-                break;
-            }
-            _ => {}
+        {
+            let do_break = do_break.clone();
+            let path = path.clone();
+            FileDialogBuilder::default()
+                .set_directory(".")
+                .pick_file(move |path_option| {
+                    if let Some(selected_path) = path_option {
+                        let mut path = path.lock().expect("Unable to lock path");
+                        *path = selected_path.to_str().unwrap().to_string();
+                        let mut do_break = do_break.lock().expect("Unable to lock do_break");
+                        *do_break = true;
+                    }
+                });
+        }
+
+        if do_break.lock().expect("Unable to lock do_break").clone() {
+            break;
         }
     }
 
     // Read the profile and deserialize the profile
-    let serialized_profile = read(path.clone()).expect("Unable to read profile");
+    let serialized_profile =
+        read(path.lock().expect("Unable to lock path").clone()).expect("Unable to read profile");
     let profile: Profile = deserialize(&serialized_profile);
 
     // Lock the current profile
@@ -179,7 +192,7 @@ pub fn open_profile(app_state: State<AppState>) {
 
     // Set the current profile and set the profile status to loaded
     *current_profile = profile;
-    *current_profile_path = path;
+    *current_profile_path = path.lock().expect("Unable to lock path").clone();
     *is_profile_loaded = true;
 
     // If profile contains accounts, set the current account to the first account
@@ -203,19 +216,32 @@ pub fn open_profile(app_state: State<AppState>) {
 /// Creates a new profile with the given name and sets the current profile to the new profile.
 /// # Panics
 /// Panics if the current profile and its loaded status cannot be locked.
+/// Panics if the profile path cannot be locked.
+/// Panics if the path cannot be locked.
+/// Panics if do_break cannot be locked.
 #[tauri::command(rename_all = "snake_case")]
 pub fn new_profile(name: String, app_state: State<AppState>) {
-    // Initialize the string holding the path
-    let path: String;
+    let path = Arc::new(Mutex::new(String::new()));
+
+    let do_break = Arc::new(Mutex::new(false));
     loop {
-        // TODO: Move to tauri::api::dialog because tauri_api::dialog is deprecated
-        let response = dialog::save_file(Some("RustyBudget"), Some(".")).unwrap();
-        match response {
-            Response::Okay(selected_path) => {
-                path = selected_path;
-                break;
-            }
-            _ => {}
+        {
+            let do_break = do_break.clone();
+            let path = path.clone();
+            FileDialogBuilder::default()
+                .set_directory(".")
+                .save_file(move |path_option| {
+                    if let Some(selected_path) = path_option {
+                        let mut path = path.lock().expect("Unable to lock path");
+                        *path = selected_path.to_str().unwrap().to_string();
+                        let mut do_break = do_break.lock().expect("Unable to lock do_break");
+                        *do_break = true;
+                    }
+                });
+        }
+
+        if do_break.lock().expect("Unable to lock do_break").clone() {
+            break;
         }
     }
 
@@ -234,6 +260,8 @@ pub fn new_profile(name: String, app_state: State<AppState>) {
         .lock()
         .expect("Unable to lock profile path");
 
+    let path = path.lock().expect("Unable to clone path").clone();
+
     // Create a new profile
     *current_profile = Profile::new(name);
     *is_profile_loaded = true;
@@ -242,6 +270,7 @@ pub fn new_profile(name: String, app_state: State<AppState>) {
     // Write the profile to the profile path
     write_file_serialized(path, (*current_profile).clone())
 }
+
 /// Creates a new account and adds it to the current profile.
 /// # Panics
 /// Panics if the current profile and its loaded status cannot be locked.
