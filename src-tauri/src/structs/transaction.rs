@@ -1,10 +1,11 @@
+use crate::structs::*;
 use crate::utils::*;
 use serde::{Deserialize, Serialize};
 
 /// Represents a transaction.
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Transaction {
-    transaction_type: TransactionType,
+    kind: TransactionKind,
     description: String,
     id: u128,
     date: String,
@@ -19,13 +20,13 @@ impl Transaction {
     /// # Panics
     /// Panics if the date is invalid or improperly formatted.
     pub fn new(
-        transaction_type: TransactionType,
+        kind: TransactionKind,
         description: String,
         date: String,
         amount: Amount,
-    ) -> Transaction {
+    ) -> Self {
         Transaction {
-            transaction_type: transaction_type,
+            kind,
             description: description,
             id: generate_id(),
             date: verify_date_format(date),
@@ -34,13 +35,13 @@ impl Transaction {
     }
 
     /// Returns the type of the transaction.
-    pub fn get_transaction_type(&self) -> TransactionType {
-        self.transaction_type.clone()
+    pub fn get_kind(&self) -> TransactionKind {
+        self.kind.clone()
     }
 
     /// Sets the type of the transaction.
-    pub fn set_transaction_type(&mut self, transaction_type: TransactionType) {
-        self.transaction_type = transaction_type
+    pub fn set_kind(&mut self, kind: TransactionKind) {
+        self.kind = kind
     }
 
     /// Returns the description of the transaction.

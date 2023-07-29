@@ -1,15 +1,10 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use tauri::{CustomMenuItem, Menu, MenuItem, Submenu, WindowMenuEvent};
+use rusty_budget::{structs::AppState, utils::*};
+use tauri::{api::dialog, AboutMetadata, CustomMenuItem, Menu, MenuItem, Submenu, WindowMenuEvent};
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-#[tauri::command]
-fn search(input: &str) -> String {
-    format!("You searched {}.", input)
-}
-
-fn setup_menu(app_name: &String) -> Menu {
+fn setup_menu(app_name: String) -> Menu {
     let mut menu = Menu::new();
 
     // ========================================================================
@@ -18,12 +13,9 @@ fn setup_menu(app_name: &String) -> Menu {
     #[cfg(target_os = "macos")]
     {
         menu = menu.add_submenu(Submenu::new(
-            app_name,
+            app_name.clone(),
             Menu::new()
-                .add_native_item(MenuItem::About(
-                    app_name.to_string(),
-                    AboutMetadata::default(),
-                ))
+                .add_native_item(MenuItem::About(app_name, AboutMetadata::default()))
                 .add_native_item(MenuItem::Separator)
                 .add_native_item(MenuItem::Services)
                 .add_native_item(MenuItem::Separator)
@@ -43,20 +35,12 @@ fn setup_menu(app_name: &String) -> Menu {
     // ========================================================================
     // CUSTOM FILE MENU ITEMS =================================================
     // ========================================================================
-    let new_file =
-        CustomMenuItem::new("newFile".to_string(), "New File...").accelerator("CmdOrCtrl+N");
-    let open_file =
-        CustomMenuItem::new("openFile".to_string(), "Open File...").accelerator("CmdOrCtrl+O");
-    let new_transaction = CustomMenuItem::new("newTransaction".to_string(), "New Transaction...")
-        .accelerator("CmdOrCtrl+T");
-    let new_account = CustomMenuItem::new("newAccount".to_string(), "New Account...")
-        .accelerator("CmdOrCtrl+Shift+T");
+    let new_profile =
+        CustomMenuItem::new("newProfile".to_owned(), "New Profile...").accelerator("CmdOrCtrl+N");
+    let open_profile =
+        CustomMenuItem::new("openProfile".to_owned(), "Open Profile...").accelerator("CmdOrCtrl+O");
 
-    file_menu = file_menu
-        .add_item(new_file)
-        .add_item(open_file)
-        .add_item(new_account)
-        .add_item(new_transaction);
+    file_menu = file_menu.add_item(new_profile).add_item(open_profile);
     // ========================================================================
 
     file_menu = file_menu.add_native_item(MenuItem::CloseWindow);
@@ -120,19 +104,25 @@ fn setup_menu(app_name: &String) -> Menu {
     menu
 }
 
+#[tauri::command]
 fn setup_menu_event_handler(event: WindowMenuEvent) {
     match event.menu_item_id() {
-        "newFile" => {
-            println!("File -> New File menu item clicked!");
+        "newProfile" => {
+            println!("Profile -> New Profile menu item clicked!");
+            // let window = event.window();
+            // let window_name = window.label().to_string();
+            // let app = window.app_handle().windows()[window_name.as_str()];
+
+            // Send event to the frontend to open file saving dialog
         }
-        "openFile" => {
-            println!("File -> Open File menu item clicked!");
-        }
-        "newAccount" => {
-            println!("File -> New Account menu item clicked!");
-        }
-        "newTransaction" => {
-            println!("File -> New Transaction menu item clicked!");
+        "openProfile" => {
+            println!("Profile -> Open Profile menu item clicked!");
+            dialog::FileDialogBuilder::default()
+                .add_filter("RustyBudget", &["rsb"])
+                .pick_file(|path_buf| match path_buf {
+                    Some(p) => {}
+                    _ => {}
+                });
         }
         _ => {}
     }
@@ -141,10 +131,26 @@ fn setup_menu_event_handler(event: WindowMenuEvent) {
 fn main() {
     let context = tauri::generate_context!();
     let app_name = context.package_info().name.clone();
-    let menu = setup_menu(&app_name);
+    let menu = setup_menu(app_name);
 
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![search])
+        .manage(AppState::default())
+        .invoke_handler(tauri::generate_handler![
+            search,
+            get_transaction_categories,
+            get_transactions,
+            get_current_account_currency_symbol,
+            get_currency_symbols,
+            get_accounts,
+            is_profile_loaded,
+            is_account_available,
+            get_current_account_id,
+            set_current_account_id,
+            new_profile,
+            open_profile,
+            add_account,
+            add_transaction,
+        ])
         .menu(menu)
         .on_menu_event(|event| setup_menu_event_handler(event))
         .run(context)

@@ -1,17 +1,29 @@
-use std::ops::{Add, Sub};
-
 use serde::{Deserialize, Serialize};
+use std::{
+    fmt,
+    ops::{Add, Sub},
+};
+use strum_macros::{EnumIter, EnumString};
 
 /// Represents a currency symbol.
-#[derive(Serialize, Deserialize, Clone, Copy, PartialEq, Eq, Debug)]
+#[derive(
+    Serialize, Deserialize, Clone, Copy, PartialEq, Eq, Debug, EnumIter, EnumString, Default,
+)]
 pub enum CurrencySymbol {
+    #[default]
     CAD,
     USD,
     EUR,
 }
 
+impl fmt::Display for CurrencySymbol {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
 /// Represents an amount of money in cents.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
 pub struct Amount {
     amount_cents: i64,
     currency_symbol: CurrencySymbol,
@@ -20,7 +32,7 @@ pub struct Amount {
 /// Implements the Amount struct.
 impl Amount {
     /// Creates a new amount with the given amount in cents and currency symbol.
-    pub fn new(amount_cents: i64, currency_symbol: CurrencySymbol) -> Amount {
+    pub fn new(amount_cents: i64, currency_symbol: CurrencySymbol) -> Self {
         Amount {
             amount_cents: amount_cents,
             currency_symbol: currency_symbol,

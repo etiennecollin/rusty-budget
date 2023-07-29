@@ -1,12 +1,16 @@
-use serde::{Deserialize, Serialize};
+use std::sync::atomic::{AtomicUsize, Ordering};
 
-use crate::utils::*;
+use serde::{Deserialize, Serialize};
+use crate::structs::*;
+
+static ID_COUNTER: AtomicUsize = AtomicUsize::new(0);
+
 
 /// Represents a bank account.
-#[derive(Serialize, Deserialize, Clone)]
+#[derive(Serialize, Deserialize, Clone, Default, Debug)]
 pub struct Account {
     description: String,
-    id: u128,
+    id: usize,
     balance: Amount,
     transactions: Vec<Transaction>,
 }
@@ -14,10 +18,10 @@ pub struct Account {
 /// Implements the Account struct.
 impl Account {
     /// Creates a new account with the given description and currency symbol.
-    pub fn new(description: String, currency_symbol: CurrencySymbol) -> Account {
+    pub fn new(description: String, currency_symbol: CurrencySymbol) -> Self {
         Account {
             description: description,
-            id: generate_id(),
+            id: ID_COUNTER.fetch_add(1, Ordering::SeqCst),
             balance: Amount::new(0, currency_symbol),
             transactions: Vec::new(),
         }
@@ -36,7 +40,7 @@ impl Account {
     }
 
     /// Returns the id of the account.
-    pub fn get_id(&self) -> u128 {
+    pub fn get_id(&self) -> usize {
         self.id
     }
 

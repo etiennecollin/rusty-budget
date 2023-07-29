@@ -1,20 +1,21 @@
 use serde::{Deserialize, Serialize};
 
+use crate::structs::*;
 use crate::utils::*;
 
-/// Represents a person.
-#[derive(Serialize, Deserialize, Clone)]
-pub struct Person {
+/// Represents a user profile.
+#[derive(Serialize, Deserialize, Clone, Default, Debug)]
+pub struct Profile {
     name: String,
     id: u128,
     bank_accounts: Vec<Account>,
 }
 
 /// Implements the Person struct.
-impl Person {
+impl Profile {
     /// Creates a new person with the given name.
-    pub fn new(name: String) -> Person {
-        Person {
+    pub fn new(name: String) -> Self {
+        Profile {
             name: name,
             id: generate_id(),
             bank_accounts: Vec::new(),
@@ -37,6 +38,11 @@ impl Person {
     /// Returns the id of the person.
     pub fn get_id(&self) -> u128 {
         self.id
+    }
+
+    /// Returns the mutable bank accounts of the person.
+    pub fn get_accounts_mut(&mut self) -> &mut Vec<Account> {
+        &mut self.bank_accounts
     }
 
     /// Returns the bank accounts of the person.
@@ -71,7 +77,7 @@ impl Person {
 
 /// Implements the PartialEq trait for the Person struct.
 /// Two persons are equal if they have the same id.
-impl PartialEq for Person {
+impl PartialEq for Profile {
     /// Returns true if the persons have the same id.
     fn eq(&self, other: &Self) -> bool {
         self.get_id() == other.get_id()
@@ -79,4 +85,4 @@ impl PartialEq for Person {
 }
 
 /// Implements the Eq trait for the Person struct.
-impl Eq for Person {}
+impl Eq for Profile {}
