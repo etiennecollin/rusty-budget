@@ -1,6 +1,7 @@
 //! Helper functions for the application.
 use chrono::NaiveDate;
 use serde::de::DeserializeOwned;
+use std::fs::{read, write};
 use std::time::SystemTime;
 
 /// Generates a unique id based on the current time in nanoseconds.
@@ -71,4 +72,20 @@ where
     T: DeserializeOwned,
 {
     bincode::deserialize(encoded_obj).expect("Unable to deserialize object")
+}
+
+/// Writes a serializable object to a file.
+/// # Panics
+/// Panics if the object cannot be serialized into a vector of bytes.
+/// This happens if the object does not implement the Serialize trait.
+///
+/// Panics if the file cannot be written to.
+pub fn write_file_serialized<T>(path: String, content: T)
+where
+    T: serde::Serialize,
+{
+    let serialized_content = serialize(&content);
+    // Write the serialized profile to the profile
+    write(path.clone(), serialized_content)
+        .expect(format!("Unable to write profile to path: {}", path).as_str());
 }
