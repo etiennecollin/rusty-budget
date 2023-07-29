@@ -93,7 +93,7 @@
 
 .container {
     padding: var(--gap-size);
-    padding-top: 0px;
+    margin: calc(var(--gap-size) / 2);
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -104,6 +104,14 @@
 
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     outline: none;
+}
+
+.container>h1 {
+    margin-top: 0;
+}
+
+.full-width {
+    width: 100%;
 }
 
 .row {
@@ -129,6 +137,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+form select,
+form input {
+    width: 75%;
+}
+
+form button {
+    width: 50%;
 }
 
 a {
@@ -266,9 +283,9 @@ li {
 
     padding: var(--spacing-size);
 
-    grid-template-areas: "content-sidebar gap1 main-content-left gap2 main-content-right";
+    grid-template-areas: "content-sidebar main-content-left main-content-right";
     grid-template-rows: 1fr;
-    grid-template-columns: auto calc(var(--gap-size) / 2) 2fr var(--gap-size) 1fr;
+    grid-template-columns: auto 2fr 1fr;
     display: grid;
 }
 
@@ -284,6 +301,7 @@ li {
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 
     padding: var(--spacing-size);
+    margin: calc(var(--gap-size) / 2);
 
     height: fit-content;
 }
@@ -294,7 +312,7 @@ li {
 
 #content-main-left {
     grid-area: main-content-left;
-    height: 85vh;
+    height: 80vh;
     overflow: auto;
 }
 
@@ -337,32 +355,6 @@ li {
     height: fit-content;
 }
 
-#content-main-right>h1 {
+#content-main-right h1 {
     text-align: center;
-}
-
-#add-transaction {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#add-transaction select,
-#add-transaction input {
-    width: 75%;
-}
-
-#add-transaction button {
-    width: 50%;
-}
-
-/* ------------------------------------------------------------------------- */
-/* Load file */
-/* ------------------------------------------------------------------------- */
-
-#load-file {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
