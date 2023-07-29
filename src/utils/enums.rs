@@ -9,10 +9,10 @@ pub enum Arg {
         input: String,
     },
     GetTransactionCategories {
-        transaction_type: String,
+        kind: String,
     },
     AddTransaction {
-        transaction_type: String,
+        kind: String,
         category: String,
         description: String,
         date: String,

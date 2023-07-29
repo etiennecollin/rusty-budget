@@ -3,26 +3,26 @@ use strum_macros::{EnumIter, EnumString};
 
 /// TransactionType is an enum that represents the type of transaction.
 #[derive(Serialize, Deserialize, Clone, PartialEq, Eq, Debug)]
-pub enum TransactionType {
+pub enum TransactionKind {
     Income(IncomeCategory),
     Expense(ExpenseCategory),
 }
 
 /// Implements the TransactionType struct.
-impl TransactionType {
+impl TransactionKind {
     /// Returns the type of the transaction as a string.
-    pub fn get_type_as_string(&self) -> String {
+    pub fn get_kind_as_string(&self) -> String {
         match self {
-            TransactionType::Income(_) => "Income".to_owned(),
-            TransactionType::Expense(_) => "Expense".to_owned(),
+            TransactionKind::Income(_) => "Income".to_owned(),
+            TransactionKind::Expense(_) => "Expense".to_owned(),
         }
     }
 
     /// Returns the category of the transaction as a string no matter its type.
     pub fn get_category_as_string(&self) -> String {
         match self {
-            TransactionType::Income(category) => format!("{:?}", category).to_owned(),
-            TransactionType::Expense(category) => format!("{:?}", category).to_owned(),
+            TransactionKind::Income(category) => format!("{:?}", category).to_owned(),
+            TransactionKind::Expense(category) => format!("{:?}", category).to_owned(),
         }
     }
 }
