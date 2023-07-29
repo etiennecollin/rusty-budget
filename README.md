@@ -12,6 +12,9 @@ Install prerequisites on the official Tauri and Yew website:
 Then run the following in your terminal:
 
 ```bash
-cargo install tauri-cli trunk
+# Tauri 1.4.1 dependencies
+cargo install tauri-cli
+# Yew 0.20.0 dependencies
 rustup target add wasm32-unknown-unknown
+cargo install --locked trunk
 ```
