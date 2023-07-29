@@ -385,7 +385,6 @@ pub fn get_current_account_id(app_state: State<AppState>) -> String {
         .expect("Unable to lock account index");
 
     current_account_index.to_string()
-
 }
 
 #[tauri::command(rename_all = "snake_case")]
@@ -396,9 +395,7 @@ pub fn set_current_account_id(account_id: String, app_state: State<AppState>) {
         .lock()
         .expect("Unable to lock account index");
 
-    let index = account_id
-        .parse::<usize>()
-        .expect("Invalid account index");
+    let index = account_id.parse::<usize>().expect("Invalid account index");
 
     // Set the current account index
     *current_account_index = index;
