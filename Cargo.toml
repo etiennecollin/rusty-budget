@@ -12,6 +12,8 @@ wasm-bindgen = { version = "0.2", features = ["serde-serialize"] }
 wasm-bindgen-futures = "0.4"
 web-sys = "0.3"
 js-sys = "0.3"
+strum = "0.25.0"
+strum_macros = "0.25.1"
 #################
 # For debugging #
 wasm-logger = "0.2.0"
