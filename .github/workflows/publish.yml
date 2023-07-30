@@ -19,14 +19,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # - name: Cleanup Disk
-    #   if: matrix.platform == 'ubuntu-20.04'
-    #   run: |
-    #     df -h
-    #     sudo rm -rf /usr/local/lib/android
-    #     sudo rm -rf /usr/share/dotnet
-    #     df -h
-
     - name: Setup node
       uses: actions/setup-node@v3
       with:
@@ -35,14 +27,18 @@ jobs:
     - name: Install Rust stable
       uses: dtolnay/rust-toolchain@stable
 
-    - name: Install Tauri dependencies
+    - name: Install dependencies (ubuntu only)
+      if: matrix.platform == 'ubuntu-20.04'
       run: |
-        cargo install tauri-cli
+        sudo apt-get update
+        sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+
+    - name: Install Tauri dependencies
+      run: cargo install tauri-cli
 
     - name: Install Yew dependencies
       run: |
         rustup target add wasm32-unknown-unknown
-        rustup target add wasm32-wasi
         cargo install --locked trunk
 
     - name: Install macOS intel & arm64 rust targets
@@ -50,12 +46,6 @@ jobs:
       run: |
         rustup target add aarch64-apple-darwin
         rustup target add x86_64-apple-darwin
-
-    - name: Install dependencies (ubuntu only)
-      if: matrix.platform == 'ubuntu-20.04'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
 
     - name: Build the app
       uses: tauri-apps/tauri-action@v0
